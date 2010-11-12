@@ -1,9 +1,10 @@
 #
 # lvm module
 #
-# Copyright 2008, Puzzle ITC
+# Copyright 2008, Puzzle ITC GmbH
+# Copyright 2010, Atizo AG
 # Marcel Härry haerry+puppet(at)puzzle.ch
-# Simon Josi josi+puppet(at)puzzle.ch
+# Simon Josi simon.josi+puppet(at)atizo.com
 #
 # This program is free software; you can redistribute 
 # it and/or modify it under the terms of the GNU 
@@ -11,20 +12,14 @@
 # the Free Software Foundation.
 #
 
-# modules_dir { \"lvm\": }
-
 class lvm {
-    include lvm::base
-}
-
-class lvm::base {
-    package{'lvm':
-        ensure => present,
-    }
-    service{lvm:
-        ensure => running,
-        enable => true,
-        hasstatus => true,
-        require => Package[lvm],
-    }
+  package{'lvm2':
+    ensure => present,
+  }
+  service{'lvm2-monitor':
+    ensure => running,
+    enable => true,
+    hasstatus => true,
+    require => Package['lvm2'],
+  }
 }
